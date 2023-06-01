@@ -2,6 +2,8 @@ import 'package:fav_spots/providers/user_spots_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../widgets/spot_image_picker.dart';
+
 class AddNewSpotScreen extends ConsumerStatefulWidget {
   const AddNewSpotScreen({super.key});
 
@@ -50,6 +52,8 @@ class _AddNewSpotScreenState extends ConsumerState<AddNewSpotScreen> {
                 color: Theme.of(context).colorScheme.onBackground,
               ),
             ),
+            const SizedBox(height: 10),
+            SpotImagePicker(),
             const SizedBox(height: 16),
             ElevatedButton.icon(
               onPressed: _saveSpot,
