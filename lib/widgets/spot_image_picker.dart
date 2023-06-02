@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class SpotImagePicker extends StatefulWidget {
-  const SpotImagePicker({super.key});
+  const SpotImagePicker({super.key, required this.onPickImage});
+
+  final void Function(File image) onPickImage;
 
   @override
   State<SpotImagePicker> createState() {
@@ -27,6 +29,8 @@ class _SpotImagePickerState extends State<SpotImagePicker> {
     setState(() {
       _selectedImage = File(pickedImage.path);
     });
+
+    widget.onPickImage(_selectedImage!);
   }
 
   @override

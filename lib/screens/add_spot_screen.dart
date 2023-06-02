@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:fav_spots/providers/user_spots_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,16 +17,17 @@ class AddNewSpotScreen extends ConsumerStatefulWidget {
 
 class _AddNewSpotScreenState extends ConsumerState<AddNewSpotScreen> {
   final _titleController = TextEditingController();
+  File? _selectedImage;
 
   void _saveSpot() {
     final enteredTitle = _titleController.text;
 
     //TODO show error dialog
-    if (enteredTitle.isEmpty) {
+    if (enteredTitle.isEmpty || _selectedImage == null) {
       return;
     }
 
-    ref.read(userSpotsProvider.notifier).addSpot(enteredTitle);
+    ref.read(userSpotsProvider.notifier).addSpot(enteredTitle, _selectedImage!);
 
     Navigator.of(context).pop();
   }
@@ -53,7 +56,11 @@ class _AddNewSpotScreenState extends ConsumerState<AddNewSpotScreen> {
               ),
             ),
             const SizedBox(height: 10),
-            SpotImagePicker(),
+            SpotImagePicker(
+              onPickImage: (image){
+                _selectedImage = image;
+              },
+            ),
             const SizedBox(height: 16),
             ElevatedButton.icon(
               onPressed: _saveSpot,
