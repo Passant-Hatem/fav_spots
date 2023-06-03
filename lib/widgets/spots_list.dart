@@ -20,7 +20,7 @@ class SpotsList extends StatelessWidget {
       );
     }
 
-    //TODO change item design  
+    //TODO change item design
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListView.builder(
@@ -33,6 +33,12 @@ class SpotsList extends StatelessWidget {
           title: Text(
             spots[index].title,
             style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                  color: Theme.of(context).colorScheme.onBackground,
+                ),
+          ),
+          subtitle: Text(
+            spots[index].location.address,
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(
                   color: Theme.of(context).colorScheme.onBackground,
                 ),
           ),

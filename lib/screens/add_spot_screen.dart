@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:fav_spots/models/spot_location.dart';
 import 'package:fav_spots/providers/user_spots_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../widgets/location_input.dart';
 import '../widgets/spot_image_picker.dart';
 
 class AddNewSpotScreen extends ConsumerStatefulWidget {
@@ -18,16 +20,23 @@ class AddNewSpotScreen extends ConsumerStatefulWidget {
 class _AddNewSpotScreenState extends ConsumerState<AddNewSpotScreen> {
   final _titleController = TextEditingController();
   File? _selectedImage;
+  SpotLocation? _selectedLocation;
 
   void _saveSpot() {
     final enteredTitle = _titleController.text;
 
     //TODO show error dialog
-    if (enteredTitle.isEmpty || _selectedImage == null) {
+    if (enteredTitle.isEmpty ||
+        _selectedImage == null ||
+        _selectedLocation == null) {
       return;
     }
 
-    ref.read(userSpotsProvider.notifier).addSpot(enteredTitle, _selectedImage!);
+    ref.read(userSpotsProvider.notifier).addSpot(
+          enteredTitle,
+          _selectedImage!,
+          _selectedLocation!,
+        );
 
     Navigator.of(context).pop();
   }
@@ -57,8 +66,14 @@ class _AddNewSpotScreenState extends ConsumerState<AddNewSpotScreen> {
             ),
             const SizedBox(height: 10),
             SpotImagePicker(
-              onPickImage: (image){
+              onPickImage: (image) {
                 _selectedImage = image;
+              },
+            ),
+            const SizedBox(height: 10),
+            LocationInput(
+              onSelectLocation: (location) {
+                _selectedLocation = location;
               },
             ),
             const SizedBox(height: 16),

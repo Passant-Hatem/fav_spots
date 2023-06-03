@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 
 //TODO change theme
+//TODO remove API KEY 
 final colorScheme = ColorScheme.fromSeed(
   brightness: Brightness.dark,
   seedColor: const Color.fromARGB(255, 102, 6, 247),
